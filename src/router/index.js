@@ -1,14 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AboutView from "@/views/AboutView.vue";
-import store from "@/store";
+ import store from "@/store";
 import {notification} from "ant-design-vue";
 
 const routes = [
-  {
-    path: '/about',
-    name: 'about',
-    component: AboutView
-  },
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   component: AboutView
+  // },
   {
     path: '/login',
     name: 'login',
@@ -21,8 +20,26 @@ const routes = [
       loginRequire: true
     },
     children: [{
-    }]
-  }
+      path: 'welcome',
+      component: ()=>import('../views/main/welcome.vue')
+
+    },{
+      path: 'essay',
+      component: ()=>import('../views/main/essay.vue')
+    },{
+      path: 'video',
+      component: ()=>import('../views/main/video.vue')
+    },{
+      path: 'artical',
+      component: ()=>import('../views/main/artical.vue')
+    },
+
+
+    ]
+  },{
+  path: '',
+    component: ()=>import('../views/main.vue')
+  },
 ]
 
 const router = createRouter({
@@ -40,7 +57,7 @@ router.beforeEach((to, from, next) => {
   })) {
     const _token = store.state.token;
     console.log("页面登录校验开始：", _token);
-    if (!_token.token) {
+    if (!_token) {
       console.log("用户未登录或登录超时！");
       notification.error({ description: "未登录或登录超时" });
       next('/login');

@@ -17,15 +17,20 @@
         mode="horizontal"
         :style="{ lineHeight: '64px' }"
     >
-      <a-menu-item key="/welcome">
-
-        1
+      <a-menu-item key="/video">
+        <router-link to="/video" style="color: white;">
+          视频
+        </router-link>
       </a-menu-item>
-      <a-menu-item key="/passenger">
-       2
+      <a-menu-item key="/essay">
+        <router-link to="/essay" style="color: white;">
+          随笔
+        </router-link>
       </a-menu-item>
-      <a-menu-item key="/ticket">
-        3
+      <a-menu-item key="/artical">
+        <router-link to="/artical" style="color: white;">
+          文章
+        </router-link>
       </a-menu-item>
     </a-menu>
   </a-layout-header>

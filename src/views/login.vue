@@ -75,7 +75,7 @@ export default defineComponent({
     }
 
     const sendCode = () => {
-      axios.post("http://127.0.0.1:7330/water-sty/user/getVerifyCode", {
+      axios.post("/water-sty/user/getVerifyCode", {
         phoneNum: loginForm.phoneNum
       }).then(response => {
         timerHandler();
@@ -92,7 +92,7 @@ export default defineComponent({
 
     const login = () => {
       // 发送登录请求到服务器
-      axios.post("http://127.0.0.1:7330/water-sty/user/verification", {
+      axios.post("/water-sty/user/verification", {
         phoneNum: loginForm.phoneNum,
         verifyCode: loginForm.verifyCode
       }).then(response => {
