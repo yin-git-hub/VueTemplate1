@@ -42,6 +42,8 @@
 import { defineComponent, reactive } from 'vue';
 import axios from "axios";
 import {notification} from "ant-design-vue";
+import router from "@/router";
+import store from "@/store";
 
 
 
@@ -97,11 +99,15 @@ export default defineComponent({
         let data = response.data;
         if (data.code===200) {
           notification.success({ description: '登陆成功！' });
+          console.log("====================")
+          // todo var refreshToken = data.data.refreshToken;
+          var refreshToken = "123456";
+          router.push("/");
+          store.commit("setMember", refreshToken);
         } else {
           notification.error({ description: data.message });
         }
       });
-
     };
 
     return {
