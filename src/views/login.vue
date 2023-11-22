@@ -99,11 +99,12 @@ export default defineComponent({
         let data = response.data;
         if (data.code===200) {
           notification.success({ description: '登陆成功！' });
-          console.log("====================")
-          // todo var refreshToken = data.data.refreshToken;
-          var refreshToken = "123456";
+          var refreshToken = data.data.refreshToken;
           router.push("/");
-          store.commit("setMember", refreshToken);
+          // todo 保存用户信息
+          // store.commit("setMember", refreshToken);
+          // 保存 token
+          store.commit("setToken",refreshToken)
         } else {
           notification.error({ description: data.message });
         }
