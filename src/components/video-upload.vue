@@ -5,7 +5,6 @@
       name="file"
       :multiple="true"
       :customRequest="customRequest"
-      :beforeUpload="beforeUpload"
       @change="handleChange"
   >
     <p class="ant-upload-drag-icon">
@@ -24,10 +23,10 @@
       </div>
 
       <div>
-        <p>封面：</p>
+        <p>封面：</p><picture-upload></picture-upload>
       </div>
       <div>
-        <p>分区：</p>
+        <p>分区：</p><the-selection></the-selection>
       </div>
       <div>
         <p>标签：</p>
@@ -52,12 +51,16 @@
 
 <script>
 import { InboxOutlined } from '@ant-design/icons-vue';
-import { message } from 'ant-design-vue';
+import {message} from 'ant-design-vue';
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
 import SparkMD5 from 'spark-md5'
+import PictureUpload from "@/components/picture-upload.vue";
+import TheSelection from "@/components/selection.vue";
 export default defineComponent({
   components: {
+    TheSelection,
+    PictureUpload,
     InboxOutlined,
   },
   setup() {
@@ -71,6 +74,7 @@ export default defineComponent({
     const customRequest = async ({ file }) => {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
       var name = file.name;
+      inputvalue.value = name
       let md5 =""
       await calculateMD5(file).then(ttt=>{
         md5=ttt
@@ -84,15 +88,35 @@ export default defineComponent({
         formData.append('total', totalChunks);
         formData.append('index', i+1);
         try {
-          await axios.post('/water-sty/video/upload-vue', formData);
+          await axios.post('/water-sty/video/upload-vue', formData).then(resp=>{
+            console.log("data:::",resp.data)
+
+          });
           message.success(`Chunk ${i + 1} for ${file.name} uploaded successfully.`);
         } catch (error) {
           message.error(`Chunk ${i + 1} for ${file.name} upload failed.`);
           break;
         }
       }
+
     };
 
+    // const  merge=( shardCount,  fileName,  md5,  fileType,
+    //      fileSize)=>{
+    //   axios.get("/water-sty/video/merge",{
+    //     "shardCount":shardCount,
+    //     "fileName":fileName,
+    //     "md5":md5,
+    //     "fileType":fileType,
+    //     "fileSize":fileSize,
+    //     "area":area
+    //   }).then(resp=>{
+    //     if (resp.data.code === 200) {
+    //       notification.success("视频上传成功")
+    //     }
+    //   })
+    //
+    // }
     const handleChange = info => {
       const status = info.file.status;
       if (status !== 'uploading') {
@@ -104,11 +128,7 @@ export default defineComponent({
         message.error(`${info.file.name} file upload failed.`);
       }
     };
-// 上传头像前校验
-    const beforeUpload=()=> {
-      console.log("isUpload:::",isUpload.value)
-      return isUpload.value
-    };
+
 
     const clickIsUpload = ()=>{
       isUpload.value = true
@@ -158,7 +178,6 @@ export default defineComponent({
       handleChange,
       customRequest,
       fileList: ref([]),
-      beforeUpload,
       clickIsUpload,
       dropDownBox,
       options: [...Array(25)].map((_, i) => ({
