@@ -5,8 +5,12 @@
         呼神护卫
       </router-link>
     </div>
+
     <div style="float: right; color: white;">
-      您好：{{member}} &nbsp;&nbsp;
+      您好：{{member}}&nbsp;&nbsp;&nbsp;
+
+      <the-create-list></the-create-list>&nbsp;&nbsp;&nbsp;
+
       <router-link to="/login" style="color: white;">
         退出登录
       </router-link>
@@ -40,9 +44,12 @@
 import {defineComponent, ref, watch} from 'vue';
 import store from "@/store";
 import router from '@/router'
+import TheCreateList from "@/components/create-list.vue";
 
 export default defineComponent({
   name: "the-header-view",
+  components: {TheCreateList},
+
   setup() {
     let member = store.state.member;
     const selectedKeys = ref([]);

@@ -3,8 +3,7 @@ import {defineComponent} from 'vue'
 import ComingSoon from "@/components/comingSoon.vue";
 import axios from "axios";
 // import axios from "axios";
-axios.get("/water-sty/test1").then(response => {
-
+  axios.get("/water-sty/test1").then(response => {
   let data = response.data;
   console.log("time...")
   console.log(data)

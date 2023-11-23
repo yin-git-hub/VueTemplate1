@@ -32,6 +32,9 @@ const routes = [
     },{
       path: 'artical',
       component: ()=>import('../views/main/artical.vue')
+    },{
+      path: '/video-upload',
+      component: ()=>import('../components/video-upload.vue')
     },
 
 

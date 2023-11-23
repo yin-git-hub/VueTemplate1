@@ -9,7 +9,7 @@ import {defineComponent} from 'vue'
 
 <template>
   <div class="coming-soon">
-    <img class="image" src="./oqn8.jpg" alt="Coming Soon" />
+    <img class="image" src="../../public/static/oqn8.jpg" alt="Coming Soon" />
     <h1 class="title">敬请期待</h1>
     <p class="description">我们正在努力准备更多精彩内容，敬请期待！</p>
   </div>
